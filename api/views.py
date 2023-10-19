@@ -1,10 +1,9 @@
-from rest_framework import generics
-from rest_framework import permissions
+from rest_framework import generics, permissions
+from rest_framework import viewsets
 from .models import Post, Rating
 from .serializers import UserSerializer, PostSerializer, RatingSerializer
 from django.contrib.auth.models import User
-
-class UserListView(generics.ListCreateAPIView):
+class UserListView(viewsets.ModelViewSet):
     """
     API-представление для просмотра и создания пользователей.
 
@@ -18,7 +17,7 @@ class UserListView(generics.ListCreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
-class PostListView(generics.ListCreateAPIView):
+class PostListView(viewsets.ModelViewSet):
     """
     API-представление для просмотра и создания постов.
 
@@ -46,7 +45,7 @@ class PostListView(generics.ListCreateAPIView):
         """
         serializer.save(author=self.request.user)
 
-class RatingListView(generics.ListCreateAPIView):
+class RatingListView(viewsets.ModelViewSet):
     """
     API-представление для просмотра и создания рейтингов.
 

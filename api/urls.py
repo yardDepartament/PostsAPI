@@ -1,8 +1,12 @@
-from django.urls import path
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
 from .views import UserListView, PostListView, RatingListView
 
+router = DefaultRouter()
+router.register(r'users', UserListView, basename='user')
+router.register(r'posts', PostListView, basename='post')
+router.register(r'ratings', RatingListView, basename='rating')
+
 urlpatterns = [
-    path('users/', UserListView.as_view(), name='user-list'),
-    path('posts/', PostListView.as_view(), name='post-list'),
-    path('ratings/', RatingListView.as_view(), name='rating-list'),
+    path('', include(router.urls)),
 ]
